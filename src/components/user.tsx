@@ -245,7 +245,6 @@ function User({
           </Button>
         </CardContent>
       </Card>
-      <div className="flex gap-6"></div>
       <Card className="w-full">
         <CardHeader>
           <CardTitle className="text-lg">{name}'s Owned NFTs</CardTitle>
