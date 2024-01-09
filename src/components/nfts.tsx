@@ -1,22 +1,15 @@
 import Uri from "@/components/uri";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { NFTs as NFTsType } from "@/components/user";
 
 type NFTProps = {
   address?: string;
+  mintClicked?: boolean;
+  nfts: NFTsType;
+  setNfts: (nfts: NFTsType) => void;
 };
 
-type NFT = {
-  NFTokenID: string;
-  Issuer: string;
-  URI: string;
-  decodedUri?: string;
-};
-
-type NFTs = NFT[];
-
-function NFTs({ address }: NFTProps) {
-  const [nfts, setNfts] = useState<NFTs>([]);
-
+function NFTs({ address, mintClicked, nfts, setNfts }: NFTProps) {
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -37,7 +30,7 @@ function NFTs({ address }: NFTProps) {
       }
     };
     fetchData();
-  }, [address]);
+  }, [address, mintClicked, setNfts]);
 
   return (
     <div className="flex flex-col gap-2">
