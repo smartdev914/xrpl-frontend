@@ -35,7 +35,7 @@ export default function CopyField({ text, content }: CopyFieldProps) {
             <span>{text}</span>
             <span>{content}</span>
           </TooltipTrigger>
-          <TooltipContent className="ml-20 flex cursor-pointer items-center gap-2 bg-zinc-800/80">
+          <TooltipContent className="ml-20 flex cursor-pointer items-center gap-2 bg-zinc-100/90 dark:bg-zinc-800/80">
             <p>{content}</p>
             {!copySuccess && <Copy size={12} />}
             {copySuccess && <Check size={12} />}

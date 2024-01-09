@@ -49,7 +49,7 @@ function Uri({ uri }: UriProps) {
           <TooltipTrigger>
             <p className="max-w-80 truncate text-left">URI: {decodedUri}</p>
           </TooltipTrigger>
-          <TooltipContent className="bg-zinc-800/80">
+          <TooltipContent className="bg-zinc-100/90 dark:bg-zinc-800/80">
             <p>{decodedUri}</p>
           </TooltipContent>
         </a>
