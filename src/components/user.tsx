@@ -23,6 +23,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import CopyField from "@/components/copy-field";
 
 type UserProps = {
   name: string;
@@ -198,7 +199,9 @@ function User({
       <Card>
         <CardHeader>
           <CardTitle className="text-xl">{name}</CardTitle>
-          <CardDescription>Address: {address}</CardDescription>
+          <CardDescription>
+            <CopyField text="Address: " content={address} />
+          </CardDescription>
         </CardHeader>
         <CardContent className="flex justify-around">
           {mint && (
