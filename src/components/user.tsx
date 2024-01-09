@@ -196,7 +196,7 @@ function User({
 
   return (
     <div className="text-md flex w-full flex-col items-center justify-center gap-4">
-      <Card>
+      <Card className="w-full">
         <CardHeader>
           <CardTitle className="text-xl">{name}</CardTitle>
           <CardDescription>
