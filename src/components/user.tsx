@@ -11,6 +11,18 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { TransferOffer } from "@/layout/home";
 import { useState } from "react";
+import { toast } from "sonner";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 
 type UserProps = {
   name: string;
@@ -47,8 +59,7 @@ function User({
   setRefreshNfts,
 }: UserProps) {
   const [nfts, setNfts] = useState<NFTs>([]);
-  // const [refreshTransferOffers, setRefreshTransferOffers] =
-  // useState<boolean>(false);
+  const [uri, setUri] = useState("");
 
   const mintNFT = async () => {
     try {
@@ -59,7 +70,7 @@ function User({
           body: JSON.stringify({
             address: address,
             seed: seed,
-            uri: "testUri123",
+            uri: uri,
           }),
           headers: {
             "Content-Type": "application/json",
@@ -71,7 +82,15 @@ function User({
       if (data.status !== "OK") {
         throw new Error("Error minting NFT");
       }
+      setUri("");
       setRefreshNfts(!refreshNfts);
+      toast.success("NFT Minted", {
+        description: `An NFT was minted by ${name}`,
+        action: {
+          label: "Close",
+          onClick: () => {},
+        },
+      });
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -101,6 +120,13 @@ function User({
         throw new Error("Error creating sell offer");
       }
       getTransferOffers(nfts[0].NFTokenID);
+      toast.success("Transfer Offer Created", {
+        description: `A transfer offer was created by ${name}`,
+        action: {
+          label: "Close",
+          onClick: () => {},
+        },
+      });
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -147,20 +173,21 @@ function User({
       if (data.status !== "OK") {
         throw new Error("Error accepting sell offer");
       }
-      setRefreshNfts(!refreshNfts);
 
+      setRefreshNfts(!refreshNfts);
       const newTransferOffer: TransferOffer = {
         ...transferOffer,
         nft_id: "",
         offers: [],
       };
-
       refreshTransferOffer(newTransferOffer);
-      // refreshTransferOffer((prev: TransferOffer) => ({
-      //   ...prev,
-      //   nft_id: "",
-      //   offers: [],
-      // }));
+      toast.success("Transfer Offer Accepted", {
+        description: `A transfer offer was accepted by ${name}`,
+        action: {
+          label: "Close",
+          onClick: () => {},
+        },
+      });
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -175,9 +202,37 @@ function User({
         </CardHeader>
         <CardContent className="flex justify-around">
           {mint && (
-            <Button variant="outline" onClick={mintNFT}>
-              Mint
-            </Button>
+            <Dialog>
+              <DialogTrigger>
+                <Button variant="outline">Mint</Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Mint NFT</DialogTitle>
+                  <DialogDescription>
+                    Mint an NFT to {name}. Insert the URI below.
+                  </DialogDescription>
+                </DialogHeader>
+                <Input
+                  className="w-full"
+                  placeholder="URI"
+                  onChange={(e) => setUri(e.target.value)}
+                />
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <Button
+                      disabled={uri === "" || uri === undefined}
+                      className=""
+                      variant="outline"
+                      type="submit"
+                      onClick={mintNFT}
+                    >
+                      Mint
+                    </Button>
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           )}
           <Button variant="outline" onClick={createTransferOffer}>
             Transfer
@@ -216,23 +271,8 @@ function User({
             <ScrollArea className="flex h-80 flex-col gap-2">
               <Transfer transfer={transferOffer} />
             </ScrollArea>
-            {/* 
-            {transferOffers.map((transferOffer, index) => (
-              <Transfer transfer={transferOffer} key={index} />
-            ))} */}
           </CardContent>
         </Card>
-        {/* <Card className="w-full">
-          <CardHeader>
-            <CardTitle className="text-lg">Buy Offers</CardTitle>
-            <CardDescription>List of Buy Offers</CardDescription>
-          </CardHeader>
-          <CardContent className="flex min-h-40 flex-col gap-2">
-            <div>Buy Offer 1</div>
-            <div>Buy Offer 2</div>
-            <div>Buy Offer 3</div>
-          </CardContent>
-        </Card> */}
       </div>
     </div>
   );

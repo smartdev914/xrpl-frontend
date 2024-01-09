@@ -1,3 +1,4 @@
+import CopyField from "@/components/copy-field";
 import { Offer } from "@/layout/home";
 
 type TransferProps = {
@@ -11,15 +12,15 @@ function Transfer({ transfer }: TransferProps) {
   return (
     <div className="flex max-w-80 flex-col gap-2">
       {transfer != null && transfer.offers.length > 0 && (
-        <p className="truncate">NFT Token ID: {transfer.nft_id}</p>
+        <CopyField text="NFT Token ID: " content={transfer.nft_id} />
       )}
       {transfer != null && transfer.offers.length > 0
         ? transfer.offers.map((offer, index) => (
             <div className="flex flex-col gap-2" key={index}>
               <p className="truncate">Amount: {offer.amount}</p>
-              <p className="truncate">Offer Index: {offer.nft_offer_index}</p>
-              <p className="truncate">Destination: {offer.destination}</p>
-              <p className="truncate">Owner: {offer.owner}</p>
+              <CopyField text="Offer Index: " content={offer.nft_offer_index} />
+              <CopyField text="Destination: " content={offer.destination} />
+              <CopyField text="Owner: " content={offer.owner} />
               <p className="w-full border-b border-zinc-700" />
             </div>
           ))

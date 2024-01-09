@@ -1,4 +1,10 @@
 import { useEffect, useState } from "react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 type UriProps = {
   uri: string;
@@ -36,7 +42,20 @@ function Uri({ uri }: UriProps) {
     }
   }, [uri, decodedUri]);
 
-  return <p className="truncate">URI: {decodedUri}</p>;
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <a href={decodedUri}>
+          <TooltipTrigger>
+            <p className="max-w-80 truncate text-left">URI: {decodedUri}</p>
+          </TooltipTrigger>
+          <TooltipContent className="bg-zinc-800/80">
+            <p>{decodedUri}</p>
+          </TooltipContent>
+        </a>
+      </Tooltip>
+    </TooltipProvider>
+  );
 }
 
 export default Uri;

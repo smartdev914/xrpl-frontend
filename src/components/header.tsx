@@ -6,7 +6,7 @@ export default function Header() {
       <div className="mx-auto flex w-full max-w-7xl items-center px-4 sm:px-6 lg:px-8">
         <div className="flex w-full gap-2">
           <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-            NFTruth-XRP
+            <a href="/">NFTruth-XRP</a>
           </div>
           <ModeToggle />
         </div>

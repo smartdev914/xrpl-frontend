@@ -45,7 +45,7 @@ function Home() {
           setRefreshNfts={setRefreshNfts}
         />
         <User
-          name="A"
+          name="User A"
           seed={import.meta.env.VITE_A_SEED}
           address={import.meta.env.VITE_A_ADDRESS}
           setTransferOffer={setBTransferOffers}
@@ -56,7 +56,7 @@ function Home() {
           setRefreshNfts={setRefreshNfts}
         />
         <User
-          name="B"
+          name="User B"
           seed={import.meta.env.VITE_B_SEED}
           address={import.meta.env.VITE_B_ADDRESS}
           setTransferOffer={setPlatformTransferOffers}

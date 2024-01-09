@@ -1,6 +1,7 @@
 import Home from "@/layout/home";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/header";
+import { Toaster } from "@/components/ui/sonner";
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <Header />
         <Home />
+        <Toaster />
       </ThemeProvider>
     </main>
   );

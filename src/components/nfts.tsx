@@ -1,6 +1,7 @@
 import Uri from "@/components/uri";
 import { useEffect } from "react";
 import { NFTs as NFTsType } from "@/components/user";
+import CopyField from "@/components/copy-field";
 
 type NFTProps = {
   address?: string;
@@ -36,9 +37,9 @@ function NFTs({ address, mintClicked, nfts, setNfts }: NFTProps) {
     <div className="flex flex-col gap-2">
       {nfts.map((nft, index) => (
         <div className="flex max-w-80 flex-col gap-2" key={index}>
-          <p className="truncate">Token ID: {nft.NFTokenID}</p>
+          <CopyField text="Token ID: " content={nft.NFTokenID} />
           <Uri uri={nft.URI} />
-          <p className="truncate">Issuer: {nft.Issuer}</p>
+          <CopyField text="Issuer: " content={nft.Issuer} />
           <p className="w-full border-b border-zinc-700" />
         </div>
       ))}
