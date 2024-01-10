@@ -1,5 +1,6 @@
 import CopyField from "@/components/copy-field";
 import { Offer } from "@/layout/home";
+import { Separator } from "./ui/separator";
 
 type TransferProps = {
   transfer: {
@@ -21,7 +22,7 @@ function Transfer({ transfer }: TransferProps) {
               <CopyField text="Offer Index: " content={offer.nft_offer_index} />
               <CopyField text="Destination: " content={offer.destination} />
               <CopyField text="Owner: " content={offer.owner} />
-              <p className="w-full border-b border-zinc-700" />
+              <Separator />
             </div>
           ))
         : null}
