@@ -1,48 +1,61 @@
 import Uri from "@/components/uri";
-import { useEffect } from "react";
-import { NFTs as NFTsType } from "@/components/user";
 import CopyField from "@/components/copy-field";
+import { Separator } from "./ui/separator";
+import { useGetNfts } from "@/hooks/useGetNfts";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import useSelectedNFTStore from "@/hooks/store/useSelectedNFTStore";
+import { useEffect } from "react";
 
 type NFTProps = {
-  address?: string;
-  mintClicked?: boolean;
-  nfts: NFTsType;
-  setNfts: (nfts: NFTsType) => void;
+  address: string;
 };
 
-function NFTs({ address, mintClicked, nfts, setNfts }: NFTProps) {
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/xrp/nfts/${address}`,
-          {
-            method: "GET",
-          },
-        );
+function NFTs({ address }: NFTProps) {
+  const { isPending, isError, data, error } = useGetNfts(address);
+  const { selectedNFT, setSelectedNFT } = useSelectedNFTStore((state) => ({
+    selectedNFT: state.selectedNFT,
+    setSelectedNFT: state.setSelectedNFT,
+  }));
 
-        const data = await response.json();
-        if (data.status !== "OK") {
-          throw new Error("Error fetching NFTs");
-        }
-        setNfts(data.value.result.account_nfts);
-      } catch (error) {
-        console.log("Error: ", error);
-      }
-    };
-    fetchData();
-  }, [address, mintClicked, setNfts]);
+  useEffect(() => {
+    if (data && data.length > 0 && selectedNFT[address] === undefined) {
+      setSelectedNFT(address, data[0].NFTokenID);
+    }
+  }, [data, address, selectedNFT, setSelectedNFT]);
+
+  if (isPending) {
+    return <p>Loading...</p>;
+  }
+  if (isError) {
+    return <p>Error: {error.message}</p>;
+  }
 
   return (
     <div className="flex flex-col gap-2">
-      {nfts.map((nft, index) => (
-        <div className="flex max-w-80 flex-col gap-2" key={index}>
-          <CopyField text="Token ID: " content={nft.NFTokenID} />
-          <Uri uri={nft.URI} />
-          <CopyField text="Issuer: " content={nft.Issuer} />
-          <p className="w-full border-b border-zinc-700" />
-        </div>
-      ))}
+      {data !== undefined && data !== null && data.length > 0 && (
+        <RadioGroup
+          // defaultValue={data[0].NFTokenID}
+          value={selectedNFT[address]}
+          onValueChange={(e) => {
+            setSelectedNFT(address, e);
+          }}
+        >
+          {data.map(
+            (nft: { NFTokenID: string; URI: string; Issuer: string }) => (
+              <div className="flex items-center gap-4 px-2" key={nft.NFTokenID}>
+                <RadioGroupItem value={nft.NFTokenID} id={nft.NFTokenID} />
+                <Label htmlFor={nft.NFTokenID} className="flex flex-col gap-2">
+                  <CopyField text="Token ID: " content={nft.NFTokenID} />
+                  <Uri uri={nft.URI} />
+                  <CopyField text="Issuer: " content={nft.Issuer} />
+                  <Separator />
+                </Label>
+              </div>
+            ),
+          )}
+        </RadioGroup>
+      )}
     </div>
   );
 }

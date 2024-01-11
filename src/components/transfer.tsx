@@ -1,28 +1,57 @@
 import CopyField from "@/components/copy-field";
-import { Offer } from "@/layout/home";
 import { Separator } from "./ui/separator";
+import { useGetAllTransferOffers } from "@/hooks/useGetAllTransferOffers";
+import { useEffect } from "react";
+import useTokenStore from "@/hooks/store/useTokenStore";
 
 type TransferProps = {
-  transfer: {
-    nft_id: string;
-    offers: Offer[];
-  };
+  address: string;
 };
 
-function Transfer({ transfer }: TransferProps) {
+function Transfer({ address }: TransferProps) {
+  const { tokenIds, loading } = useTokenStore((state) => ({
+    tokenIds: state.tokenIds,
+    loading: state.loading,
+  }));
+
+  const { data, isLoading, refetch } = useGetAllTransferOffers(address);
+
+  const allFetched = Object.values(loading).every((isLoading) => isLoading);
+
+  useEffect(() => {
+    if (tokenIds.length > 0 && allFetched) {
+      console.log("All fetched: ", allFetched, address);
+      refetch();
+    }
+  }, [tokenIds]);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div className="flex max-w-80 flex-col gap-2">
-      {transfer != null && transfer.offers.length > 0 && (
-        <CopyField text="NFT Token ID: " content={transfer.nft_id} />
-      )}
-      {transfer != null && transfer.offers.length > 0
-        ? transfer.offers.map((offer, index) => (
-            <div className="flex flex-col gap-2" key={index}>
-              <p className="truncate">Amount: {offer.amount}</p>
-              <CopyField text="Offer Index: " content={offer.nft_offer_index} />
-              <CopyField text="Destination: " content={offer.destination} />
-              <CopyField text="Owner: " content={offer.owner} />
-              <Separator />
+      {data !== undefined && data !== null && data.length > 0
+        ? data.map((transfer) => (
+            <div>
+              {transfer != null && transfer.offers.length > 0 && (
+                <CopyField text="NFT Token ID: " content={transfer.nft_id} />
+              )}
+              {transfer.offers.map((offer) => (
+                <div
+                  className="flex flex-col gap-2"
+                  key={offer.nft_offer_index}
+                >
+                  <p className="truncate">Amount: {offer.amount}</p>
+                  <CopyField
+                    text="Offer Index: "
+                    content={offer.nft_offer_index}
+                  />
+                  <CopyField text="Destination: " content={offer.destination} />
+                  <CopyField text="Owner: " content={offer.owner} />
+                  <Separator />
+                </div>
+              ))}
             </div>
           ))
         : null}
