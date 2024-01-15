@@ -31,7 +31,7 @@ export default function CopyField({ text, content }: CopyFieldProps) {
     <div onClick={() => copyToClipboard(content ?? "")}>
       <TooltipProvider>
         <Tooltip>
-          <TooltipTrigger className="max-w-80 truncate hover:bg-secondary/50">
+          <TooltipTrigger className="max-w-72 truncate hover:bg-secondary/50">
             <span>{text}</span>
             <span>{content}</span>
           </TooltipTrigger>

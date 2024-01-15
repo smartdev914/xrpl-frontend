@@ -63,7 +63,7 @@ function User({ name, mint, seed, previous, address, destination }: UserProps) {
           <CardDescription>List of {name}'s Owned NFTs</CardDescription>
         </CardHeader>
         <CardContent>
-          <ScrollArea className="flex h-80 flex-col">
+          <ScrollArea className="flex h-36 flex-col">
             {address && <NFTs address={address} />}
           </ScrollArea>
         </CardContent>
@@ -75,7 +75,7 @@ function User({ name, mint, seed, previous, address, destination }: UserProps) {
             <CardDescription>List of {name}'s Transfer Offers</CardDescription>
           </CardHeader>
           <CardContent>
-            <ScrollArea className="flex h-80 flex-col gap-2">
+            <ScrollArea className="flex h-40 flex-col gap-2">
               <Transfer address={address} />
             </ScrollArea>
           </CardContent>

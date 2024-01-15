@@ -25,7 +25,7 @@ function Uri({ uri }: UriProps) {
       <Tooltip>
         <a href={data}>
           <TooltipTrigger>
-            <p className="max-w-80 truncate text-left">URI: {data}</p>
+            <p className="max-w-72 truncate text-left">URI: {data}</p>
           </TooltipTrigger>
           <TooltipContent className="bg-zinc-100/90 dark:bg-zinc-800/80">
             <p>{data}</p>
