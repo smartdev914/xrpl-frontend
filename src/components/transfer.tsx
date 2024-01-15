@@ -16,12 +16,6 @@ function Transfer({ address }: TransferProps) {
   const { setSelectedTransfer } = useSelectedTransferStore((state) => ({
     setSelectedTransfer: state.setSelectedTransfer,
   }));
-  // const { selectedTransfer, setSelectedTransfer } = useSelectedTransferStore(
-  //   (state) => ({
-  //     selectedTransfer: state.selectedTransfer,
-  //     setSelectedTransfer: state.setSelectedTransfer,
-  //   }),
-  // );
 
   const selectTokenStore = useCallback(
     (state: TokenStore) => ({
@@ -30,10 +24,7 @@ function Transfer({ address }: TransferProps) {
     }),
     [],
   );
-  // const { tokenIds, loading } = useTokenStore((state) => ({
-  //   tokenIds: state.tokenIds,
-  //   loading: state.loading,
-  // }));
+
   const { tokenIds, loading } = useTokenStore(selectTokenStore);
 
   const { data, isLoading, refetch } = useGetAllTransferOffers(address);
@@ -69,12 +60,11 @@ function Transfer({ address }: TransferProps) {
     <div className="flex max-w-72 flex-col gap-2">
       {data.map((transfer) => (
         <RadioGroup
-          // value={selectedTransfer[address]}
           onValueChange={(e) => {
             setSelectedTransfer(address, e);
           }}
         >
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 text-sm">
             <RadioGroupItem value={transfer.nft_id} id={transfer.nft_id} />
             <div className="flex flex-col gap-2">
               <CopyField text="NFT Token ID: " content={transfer.nft_id} />
@@ -94,30 +84,6 @@ function Transfer({ address }: TransferProps) {
           </div>
         </RadioGroup>
       ))}
-      {/* {data !== undefined && data !== null && data.length > 0
-        ? data.map((transfer) => (
-            <div>
-              {transfer !== null && transfer.offers.length > 0 && (
-                <CopyField text="NFT Token ID: " content={transfer.nft_id} />
-              )}
-              {transfer.offers.map((offer) => (
-                <div
-                  className="flex flex-col gap-2"
-                  key={offer.nft_offer_index}
-                >
-                  <p className="truncate">Amount: {offer.amount}</p>
-                  <CopyField
-                    text="Offer Index: "
-                    content={offer.nft_offer_index}
-                  />
-                  <CopyField text="Destination: " content={offer.destination} />
-                  <CopyField text="Owner: " content={offer.owner} />
-                  <Separator />
-                </div>
-              ))}
-            </div>
-          ))
-        : null} */}
     </div>
   );
 }
