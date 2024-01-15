@@ -1,4 +1,5 @@
 import useSelectedNFTStore from "@/hooks/store/useSelectedNFTStore";
+import useSelectedTransferStore from "@/hooks/store/useSelectedTransferStore";
 import { useGetAllTransferOffers } from "@/hooks/useGetAllTransferOffers";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -18,6 +19,13 @@ export const useAcceptTransfer = ({
 }: AcceptTransferParams) => {
   const queryClient = useQueryClient();
 
+  const { selectedTransfer, setSelectedTransfer } = useSelectedTransferStore(
+    (state) => ({
+      selectedTransfer: state.selectedTransfer,
+      setSelectedTransfer: state.setSelectedTransfer,
+    }),
+  );
+
   const setSelectedNFT = useSelectedNFTStore((state) => state.setSelectedNFT);
   const transferOffers = useGetAllTransferOffers(address);
 
@@ -32,6 +40,21 @@ export const useAcceptTransfer = ({
       });
       return;
     }
+
+    if (
+      selectedTransfer[address] === undefined ||
+      selectedTransfer[address] === ""
+    ) {
+      toast.error("Error", {
+        description: "No Transfer Offer selected to accept",
+        action: {
+          label: "Close",
+          onClick: () => {},
+        },
+      });
+      return;
+    }
+
     const response = await fetch(
       `${import.meta.env.VITE_BACKEND_URL}/xrp/offer/sell/accept`,
       {
@@ -52,6 +75,7 @@ export const useAcceptTransfer = ({
       throw new Error("Error accepting sell offer");
     }
     setSelectedNFT(previous, "");
+    setSelectedTransfer(address, "");
     toast.success("Transfer Offer Accepted", {
       description: `A transfer offer was accepted by ${name}`,
       action: {

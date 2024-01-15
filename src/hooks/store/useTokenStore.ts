@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-type TokenStore = {
+export type TokenStore = {
   tokenIds: string[];
   loading: Record<string, boolean>; // Maps addresses to loading states
   addTokenId: (id: string) => void;

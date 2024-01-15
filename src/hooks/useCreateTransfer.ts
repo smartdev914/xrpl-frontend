@@ -21,16 +21,16 @@ export const useCreateTransfer = ({
   const nfts = useGetNfts(address);
   const transferOffers = useGetAllTransferOffers(destination);
 
-  const { selectedNFT } = useSelectedNFTStore((state) => ({
+  const { selectedNFT, setSelectedNFT } = useSelectedNFTStore((state) => ({
     selectedNFT: state.selectedNFT,
-    // setSelectedNFT: state.setSelectedNFT,
+    setSelectedNFT: state.setSelectedNFT,
   }));
 
   const createTransferOffer = async () => {
     console.log("SelectedNFT: ", selectedNFT[address]);
     if (selectedNFT[address] === undefined || selectedNFT[address] === "") {
       toast.error("Error", {
-        description: "No NFT selected",
+        description: "No NFT selected to transfer",
         action: {
           label: "Close",
           onClick: () => {},
@@ -86,6 +86,7 @@ export const useCreateTransfer = ({
     if (data.status !== "OK") {
       throw new Error("Error creating sell offer");
     }
+    setSelectedNFT(address, "");
     toast.success("Transfer Offer Created", {
       description: `A transfer offer was created by ${name}`,
       action: {
