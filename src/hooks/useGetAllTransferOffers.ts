@@ -44,6 +44,6 @@ export const useGetAllTransferOffers = (destination: string) => {
   return useQuery({
     queryKey: ["allTransferOffers", destination],
     queryFn: getAllTransferOffers,
-    enabled: false,
+    enabled: tokenIds.length > 0,
   });
 };

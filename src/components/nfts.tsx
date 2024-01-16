@@ -5,7 +5,6 @@ import { useGetNfts } from "@/hooks/useGetNfts";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import useSelectedNFTStore from "@/hooks/store/useSelectedNFTStore";
-// import { useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 type NFTProps = {
@@ -14,16 +13,10 @@ type NFTProps = {
 
 function NFTs({ address }: NFTProps) {
   const { isPending, isError, data, error } = useGetNfts(address);
-  const { setSelectedNFT } = useSelectedNFTStore((state) => ({
-    // selectedNFT: state.selectedNFT,
+  const { selectedNFT, setSelectedNFT } = useSelectedNFTStore((state) => ({
+    selectedNFT: state.selectedNFT,
     setSelectedNFT: state.setSelectedNFT,
   }));
-
-  // useEffect(() => {
-  //   if (data && data.length > 0 && selectedNFT[address] === undefined) {
-  //     setSelectedNFT(address, data[0].NFTokenID);
-  //   }
-  // }, [data, address, selectedNFT, setSelectedNFT]);
 
   if (isPending) {
     return (
@@ -45,8 +38,7 @@ function NFTs({ address }: NFTProps) {
     <div className="flex flex-col gap-2">
       {data !== undefined && data !== null && data.length > 0 && (
         <RadioGroup
-          // defaultValue={data[0].NFTokenID}
-          // value={selectedNFT[address]}
+          value={selectedNFT[address]}
           onValueChange={(e) => {
             setSelectedNFT(address, e);
           }}

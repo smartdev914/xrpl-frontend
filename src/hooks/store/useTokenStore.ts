@@ -2,9 +2,9 @@ import { create } from "zustand";
 
 export type TokenStore = {
   tokenIds: string[];
-  loading: Record<string, boolean>; // Maps addresses to loading states
+  loading: Record<string, boolean>;
   addTokenId: (id: string) => void;
-  setLoading: (address: string, loading: boolean) => void; // New action to set loading state
+  setLoading: (address: string, loading: boolean) => void;
   removeAll: () => void;
 };
 

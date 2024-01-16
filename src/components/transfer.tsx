@@ -35,13 +35,13 @@ function Transfer({ address }: TransferProps) {
     if (tokenIds.length > 0 && allFetched && !isLoading) {
       refetch();
     }
-  }, [tokenIds, loading]);
+  }, [tokenIds, allFetched, isLoading, refetch]);
 
   if (isLoading) {
     return (
       <div className="flex items-center gap-4">
         <Skeleton className="h-4 w-4" rounded-full />
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-3">
           <Skeleton className="h-4 w-72" />
           <Skeleton className="h-4 w-72" />
           <Skeleton className="h-4 w-72" />
