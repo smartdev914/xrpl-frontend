@@ -1,10 +1,8 @@
 import CopyField from "@/components/copy-field";
 import { Separator } from "./ui/separator";
 import { useGetAllTransferOffers } from "@/hooks/useGetAllTransferOffers";
-import { useCallback, useEffect } from "react";
-import useTokenStore from "@/hooks/store/useTokenStore";
 import { Skeleton } from "@/components/ui/skeleton";
-import { TokenStore } from "@/hooks/store/useTokenStore";
+
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import useSelectedTransferStore from "@/hooks/store/useSelectedTransferStore";
 
@@ -13,29 +11,11 @@ type TransferProps = {
 };
 
 function Transfer({ address }: TransferProps) {
+  const { data, isLoading } = useGetAllTransferOffers(address);
+
   const { setSelectedTransfer } = useSelectedTransferStore((state) => ({
     setSelectedTransfer: state.setSelectedTransfer,
   }));
-
-  const selectTokenStore = useCallback(
-    (state: TokenStore) => ({
-      tokenIds: state.tokenIds,
-      loading: state.loading,
-    }),
-    [],
-  );
-
-  const { tokenIds, loading } = useTokenStore(selectTokenStore);
-
-  const { data, isLoading, refetch } = useGetAllTransferOffers(address);
-
-  const allFetched = Object.values(loading).every((isLoading) => isLoading);
-
-  useEffect(() => {
-    if (tokenIds.length > 0 && allFetched && !isLoading) {
-      refetch();
-    }
-  }, [tokenIds, allFetched, isLoading, refetch]);
 
   if (isLoading) {
     return (

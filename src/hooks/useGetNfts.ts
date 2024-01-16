@@ -9,7 +9,7 @@ export const useGetNfts = (address: string) => {
   }));
 
   const getNfts = async () => {
-    setLoading(address, true);
+    setLoading(address, false);
 
     const response = await fetch(
       `${import.meta.env.VITE_BACKEND_URL}/xrp/nfts/${address}`,

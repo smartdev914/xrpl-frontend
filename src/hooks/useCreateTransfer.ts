@@ -94,17 +94,14 @@ export const useCreateTransfer = ({
         onClick: () => {},
       },
     });
-    await queryClient.refetchQueries({
-      queryKey: ["nfts", destination],
-      exact: true,
-    });
-    await queryClient.refetchQueries({
-      queryKey: ["allTransferOffers", destination],
-      exact: true,
-    });
   };
 
   return useMutation({
     mutationFn: createTransferOffer,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["allTransferOffers", destination],
+      });
+    },
   });
 };

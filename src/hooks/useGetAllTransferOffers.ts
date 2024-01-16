@@ -14,7 +14,12 @@ type Offer = {
 };
 
 export const useGetAllTransferOffers = (destination: string) => {
-  const tokenIds = useTokenStore((state) => state.tokenIds);
+  const { tokenIds, loading } = useTokenStore((state) => ({
+    tokenIds: state.tokenIds,
+    loading: state.loading,
+  }));
+
+  const allFetched = Object.values(loading).every((isLoading) => isLoading);
 
   const getAllTransferOffers = async (): Promise<TransferType[]> => {
     if (tokenIds.length === 0) {
@@ -44,6 +49,6 @@ export const useGetAllTransferOffers = (destination: string) => {
   return useQuery({
     queryKey: ["allTransferOffers", destination],
     queryFn: getAllTransferOffers,
-    enabled: tokenIds.length > 0,
+    enabled: allFetched && tokenIds.length > 0,
   });
 };
