@@ -38,10 +38,6 @@ export const useMintNft = () => {
       });
       throw new Error("Error minting NFT");
     }
-    await queryClient.refetchQueries({
-      queryKey: ["nfts"],
-      type: "active",
-    });
     toast.success("NFT Minted", {
       description: `An NFT was minted by ${name}`,
       action: {
@@ -53,5 +49,10 @@ export const useMintNft = () => {
 
   return useMutation({
     mutationFn: mintNFT,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["nfts"],
+      });
+    },
   });
 };
