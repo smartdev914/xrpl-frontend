@@ -26,12 +26,12 @@ The backend for this application can be found at [Backend Repository](https://gi
   - [React](https://reactjs.org/): A JavaScript library for building user interfaces.
   - [TypeScript](https://www.typescriptlang.org/): A statically typed superset of JavaScript that adds types and compiles to plain JavaScript.
   - [Vite](https://vitejs.dev/), [ESLint](https://eslint.org/), and [Prettier](https://prettier.io/): Tools for building the application, linting code, and formatting code.
-  - [Tanstack Query (React Query)](https://react-query.tanstack.com/) and [Zustand](https://github.com/pmndrs/zustand): Libraries for managing application state.
-  - [Tailwind](https://tailwindcss.com/) and [Shadcn](https://shadcn.com/): Libraries for styling the application and managing layout.
+  - [Tanstack Query](https://tanstack.com/query) and [Zustand](https://github.com/pmndrs/zustand): Libraries for managing application state.
+  - [Tailwind](https://tailwindcss.com/) and [Shadcn/ui](https://ui.shadcn.com/): Libraries for styling the application and managing layout.
 
 - **Backend:**
   - [Node.js](https://nodejs.org/): A JavaScript runtime for building server-side applications.
-  - [Express.js](https://expressjs.com/): A web application framework for Node.js.
+  - [Express](https://expressjs.com/): A web application framework for Node.js.
   - [TypeScript](https://www.typescriptlang.org/): A statically typed superset of JavaScript that adds types and compiles to plain JavaScript.
   - [XRPL](https://xrpl.org/): A library for interacting with the XRP Ledger.
 
