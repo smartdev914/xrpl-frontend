@@ -27,7 +27,16 @@ export const useCreateTransfer = ({
   }));
 
   const createTransferOffer = async () => {
-    console.log("SelectedNFT: ", selectedNFT[address]);
+    if (nfts.data.length === 0) {
+      toast.error("Error", {
+        description: "No NFTs to transfer",
+        action: {
+          label: "Close",
+          onClick: () => {},
+        },
+      });
+      return;
+    }
     if (selectedNFT[address] === undefined || selectedNFT[address] === "") {
       toast.error("Error", {
         description: "No NFT selected to transfer",

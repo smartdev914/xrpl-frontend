@@ -32,7 +32,7 @@ export const useAcceptTransfer = ({
   const acceptTransferOffer = async () => {
     if (transferOffers.data === undefined || transferOffers.data.length === 0) {
       toast.error("Error", {
-        description: "No Transfer Offers to accept",
+        description: "No Transfer Offer to accept",
         action: {
           label: "Close",
           onClick: () => {},
