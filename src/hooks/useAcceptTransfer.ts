@@ -32,7 +32,7 @@ export const useAcceptTransfer = ({
   const acceptTransferOffer = async () => {
     if (transferOffers.data === undefined || transferOffers.data.length === 0) {
       toast.error("Error", {
-        description: "No Transfer Offer to accept",
+        description: "No Contracts to sign",
         action: {
           label: "Close",
           onClick: () => {},
@@ -46,7 +46,7 @@ export const useAcceptTransfer = ({
       selectedTransfer[address] === ""
     ) {
       toast.error("Error", {
-        description: "No Transfer Offer selected to accept",
+        description: "No Contracts selected to sign",
         action: {
           label: "Close",
           onClick: () => {},
@@ -72,12 +72,12 @@ export const useAcceptTransfer = ({
 
     const data = await response.json();
     if (data.status !== "OK") {
-      throw new Error("Error accepting sell offer");
+      throw new Error("Error signing contract");
     }
     setSelectedNFT(previous, "");
     setSelectedTransfer(address, "");
-    toast.success("Transfer Offer Accepted", {
-      description: `A transfer offer was accepted by ${name}`,
+    toast.success("Contract Signed", {
+      description: `A Contract was signed by ${name}`,
       action: {
         label: "Close",
         onClick: () => {},

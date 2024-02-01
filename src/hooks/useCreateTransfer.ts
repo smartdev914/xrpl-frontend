@@ -29,7 +29,7 @@ export const useCreateTransfer = ({
   const createTransferOffer = async () => {
     if (nfts.data.length === 0) {
       toast.error("Error", {
-        description: "No NFTs to transfer",
+        description: "No Contracts to transfer",
         action: {
           label: "Close",
           onClick: () => {},
@@ -39,7 +39,7 @@ export const useCreateTransfer = ({
     }
     if (selectedNFT[address] === undefined || selectedNFT[address] === "") {
       toast.error("Error", {
-        description: "No NFT selected to transfer",
+        description: "No Contract selected to transfer",
         action: {
           label: "Close",
           onClick: () => {},
@@ -65,7 +65,7 @@ export const useCreateTransfer = ({
     }
     if (nfts.data === undefined || nfts.data.length === 0) {
       toast.error("Error", {
-        description: "No NFTs to transfer",
+        description: "No Contracts to request",
         action: {
           label: "Close",
           onClick: () => {},
@@ -93,11 +93,11 @@ export const useCreateTransfer = ({
 
     const data = await response.json();
     if (data.status !== "OK") {
-      throw new Error("Error creating sell offer");
+      throw new Error("Error creating Sign Request");
     }
     setSelectedNFT(address, "");
-    toast.success("Transfer Offer Created", {
-      description: `A transfer offer was created by ${name}`,
+    toast.success("Sign Request Sent", {
+      description: `A Sign Request was sent by ${name}`,
       action: {
         label: "Close",
         onClick: () => {},

@@ -58,10 +58,19 @@ function User({ name, mint, seed, previous, address, destination }: UserProps) {
         </CardContent>
       </Card>
       <Card className="w-full">
-        <CardHeader>
-          <CardTitle className="text-lg">{name}'s Owned NFTs</CardTitle>
-          <CardDescription>List of {name}'s Owned NFTs</CardDescription>
-        </CardHeader>
+        {name === "Platform" ? (
+          <CardHeader>
+            <CardTitle className="text-lg">{name}'s Vault</CardTitle>
+            <CardDescription>
+              List of Contracts in {name}'s Vault{" "}
+            </CardDescription>
+          </CardHeader>
+        ) : (
+          <CardHeader>
+            <CardTitle className="text-lg">{name}'s Signed Contracts</CardTitle>
+            <CardDescription>List of {name}'s Signed Contracts</CardDescription>
+          </CardHeader>
+        )}
         <CardContent>
           <ScrollArea className="flex h-56 flex-col">
             {address && <NFTs address={address} />}
@@ -71,8 +80,10 @@ function User({ name, mint, seed, previous, address, destination }: UserProps) {
       <div className="w-full">
         <Card className="w-full">
           <CardHeader>
-            <CardTitle className="text-lg">{name}'s Transfer Offers</CardTitle>
-            <CardDescription>List of {name}'s Transfer Offers</CardDescription>
+            <CardTitle className="text-lg">{name}'s Contract Mailbox</CardTitle>
+            <CardDescription>
+              List of {name}'s Contracts in Mailbox
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <ScrollArea className="flex h-56 flex-col">

@@ -27,7 +27,7 @@ function CreateTransfer({
 
   return (
     <Button variant="outline" onClick={createTransfer} disabled={isPending}>
-      Transfer
+      Request
     </Button>
   );
 }

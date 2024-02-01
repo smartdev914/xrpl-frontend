@@ -30,16 +30,16 @@ export const useMintNft = () => {
     const data = await response.json();
     if (data.status !== "OK") {
       toast.error("NFT Minting Error", {
-        description: `An error occured upon minting an NFT`,
+        description: `An error occured upon registering a Contract`,
         action: {
           label: "Close",
           onClick: () => {},
         },
       });
-      throw new Error("Error minting NFT");
+      throw new Error("Error Registering Contract");
     }
-    toast.success("NFT Minted", {
-      description: `An NFT was minted by ${name}`,
+    toast.success("Contract Registered", {
+      description: `A Contract was registered by ${name}`,
       action: {
         label: "Close",
         onClick: () => {},

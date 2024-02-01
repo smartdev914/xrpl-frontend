@@ -35,14 +35,14 @@ function Mint({ name, address, seed }: MintProps) {
     <Dialog>
       <DialogTrigger>
         <Button variant="outline" disabled={isPending}>
-          Mint
+          Register
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Mint NFT</DialogTitle>
+          <DialogTitle>Register Contract</DialogTitle>
           <DialogDescription>
-            Mint an NFT to {name}. Insert the URI below.
+            Register a Contract to {name}. Insert the URI below.
           </DialogDescription>
         </DialogHeader>
         <Input
@@ -59,7 +59,7 @@ function Mint({ name, address, seed }: MintProps) {
               type="submit"
               onClick={mintNFT}
             >
-              Mint
+              Register
             </Button>
           </DialogClose>
         </DialogFooter>

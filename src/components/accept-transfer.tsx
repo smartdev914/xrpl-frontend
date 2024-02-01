@@ -28,7 +28,7 @@ function AcceptTransfer({
 
   return (
     <Button variant="outline" onClick={acceptTransfer} disabled={isPending}>
-      Accept
+      Sign
     </Button>
   );
 }
