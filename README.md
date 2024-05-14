@@ -13,7 +13,7 @@
 
 XRP-Frontend is a web application that [describe what your application does and who it's for].
 
-The backend for this application can be found at [Backend Repository](https://github.com/yourusername/yourrepository).
+The backend for this application can be found at [Backend Repository](https://github.com/bsquarelab-ltd/xrp-backend).
 
 ## Architecture
 
