@@ -11,8 +11,6 @@
 
 XRPL-Frontend is a web application that leverages XRPL's NFTs to provide a secure, decentralized, blockchain-based contract service.
 
-The backend for this application can be found at [Backend Repository](https://github.com/bsquarelab-ltd/xrpl-backend).
-
 ## Technology Stack
 
 - **Frontend:**
@@ -36,7 +34,7 @@ Follow these steps to set up and run this project locally:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/xrp-frontend.git
+   git clone https://github.com/smartdev914/xrp-frontend.git
    ```
 
 2. **Navigate to the project directory:**
